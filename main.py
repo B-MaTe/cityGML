@@ -191,7 +191,7 @@ class DrivingEnvironment:
         
 
 if __name__ == '__main__':
-    env = DrivingEnvironment("C:/programming/python/greehill/cityObject/arae.geojson")
+    env = DrivingEnvironment(os.getcwd(), "arae.geojson")
     items = env.generate_all()
     env.visualize(items, figsize=(6, 6))
     
