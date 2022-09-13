@@ -134,25 +134,25 @@ class DrivingEnvironment:
             geojson : path of the geojson file
     """
 
-    def __init__(self, geojson):
+    def __init__(self, geojson) -> None:
         self.geojson_geometry = self.read_geojson(geojson)["geometry"]
         self.road_factory = Factory("Road")
         self.traffic_sign = Factory("TrafficSign")
             
         
-    def read_geojson(self, geojson):
+    def read_geojson(self, geojson) -> gpd.GeoDataFrame:
         return gpd.read_file(geojson)
     
     
-    def generate_roads(self):
+    def generate_roads(self) -> list:
         return self.road_factory.get_city_objects(bbox = self.geojson_geometry)
     
     
-    def generate_traffic_signs(self):
+    def generate_traffic_signs(self) -> list:
         return self.traffic_sign.get_city_objects(bbox = self.geojson_geometry)
     
     
-    def generate_all(self):
+    def generate_all(self) -> list:
         """
             Generate the Road and Traffic Sign objects.
         """
@@ -165,7 +165,7 @@ class DrivingEnvironment:
         return items
     
     
-    def visualize(self, items=None, **kwargs):
+    def visualize(self, items=None, **kwargs) -> None:
         """
             Visualize the objects
             
@@ -191,7 +191,7 @@ class DrivingEnvironment:
         
 
 if __name__ == '__main__':
-    env = DrivingEnvironment(os.getcwd(), "arae.geojson")
+    env = DrivingEnvironment(os.path.join(os.getcwd(), "arae.geojson"))
     items = env.generate_all()
     env.visualize(items, figsize=(6, 6))
     
